@@ -1,0 +1,45 @@
+<div class="signup-container">
+  <h1>Signup Test</h1>
+  <div>
+    <form (ngSubmit)="signup()">
+      <label for="Email">Name:</label>
+      <input
+        type="text"
+        id="Name"
+        name="Name"
+        placeholder="Name"
+        [(ngModel)]="_user.name"
+        required
+      />
+      <label for="Email">Email:</label>
+      <input
+        type="text"
+        id="Email"
+        name="Email"
+        placeholder="example@mail.com"
+        [(ngModel)]="_user.email"
+        required
+      />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="write more than 6 characters"
+        [(ngModel)]="_user.password"
+        required
+      />
+
+      <button type="submit">signup</button>
+    </form>
+    <a style="text-align: center" href="./login">login</a>
+  </div>
+  <div *ngIf="message" class="user-info">
+    <h2>User created!</h2>
+  </div>
+
+  <div *ngIf="Error" class="error-message">
+    <p [innerHTML]="Error">{{ Error }}</p>
+  </div>
+</div>

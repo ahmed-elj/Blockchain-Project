@@ -1,0 +1,38 @@
+<div class="login-container">
+  <h1>Login Test</h1>
+  <div>
+    <form (ngSubmit)="login()">
+      <label for="Email">Email:</label>
+      <input
+        type="text"
+        id="Email"
+        name="Email"
+        [(ngModel)]="_user.email"
+        required
+      />
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="_user.password"
+        required
+      />
+
+      <button type="submit">Login</button>
+    </form>
+    <a href="./signup">signup</a>
+  </div>
+  <div *ngIf="user.name" class="user-info">
+    <h2>User Information:</h2>
+    <p>Name: {{ user.name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <a href="./profile">Go to Profile</a>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>something went wrong...</p>
+    <p> {{ error }}</p>
+  </div>
+</div>
