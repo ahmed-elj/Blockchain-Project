@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "b0e29c74-0a53-4c06-a936-059d02c6d0d1",
+		"name": "Medical Blockchain",
+		"description": "Collection for Medical Blockchain API. Follow these steps:\n1. First use 'Get Available Accounts' to get valid addresses\n2. Use one of those addresses to register a patient\n3. Use the same address to record temperatures\n4. Use the address to get patient data",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Get Available Accounts (GET)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/accounts",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "accounts"]
+				},
+				"description": "Get list of available Ethereum addresses from Ganache. Use these addresses in other requests."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Register Patient (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Bob Doe\",\n    \"address\": \"PASTE_ADDRESS_HERE\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/patients",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "patients"]
+				},
+				"description": "Register a new patient. Use an address from 'Get Available Accounts'. Each address can only register once."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Record Temperature (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"temperature\": 37.5,\n    \"address\": \"PASTE_ADDRESS_HERE\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/temperature",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "temperature"]
+				},
+				"description": "Record temperature for a patient. Use the same address used in registration. Temperature should be in Celsius."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Get Patient Data (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/patients/PASTE_ADDRESS_HERE",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "4000",
+					"path": ["api", "patients", "PASTE_ADDRESS_HERE"]
+				},
+				"description": "Get all temperature records for a patient. Replace PASTE_ADDRESS_HERE with the patient's address."
+			},
+			"response": []
+		}
+	]
+} 
