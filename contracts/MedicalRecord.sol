@@ -169,4 +169,38 @@ contract MedicalRecord {
     function getAllPatientAddresses() public view returns (address[] memory) {
         return patientAddresses;
     }
+
+    function registerPatientByAddress(
+        address _patientAddress,
+        string memory _name,
+        string memory _medicalFolder,
+        string memory _phoneNumber,
+        string memory _email,
+        uint256 _age,
+        string memory _gender,
+        string memory _medicalDescription
+    ) public {
+        require(!patients[_patientAddress].exists, "Patient already registered");
+        
+        patients[_patientAddress].name = _name;
+        patients[_patientAddress].medicalFolder = _medicalFolder;
+        patients[_patientAddress].phoneNumber = _phoneNumber;
+        patients[_patientAddress].email = _email;
+        patients[_patientAddress].age = _age;
+        patients[_patientAddress].gender = _gender;
+        patients[_patientAddress].medicalDescription = _medicalDescription;
+        patients[_patientAddress].exists = true;
+        
+        patientAddresses.push(_patientAddress);
+        
+        emit PatientRegistered(
+            _patientAddress, 
+            _name,
+            _medicalFolder,
+            _phoneNumber,
+            _email,
+            _age,
+            _gender
+        );
+    }
 } 
